@@ -13,6 +13,8 @@ public class Buttons : MonoBehaviour
         race.baseRaceRecipe = original_dna;
         dca.ClearSlot("Face");
         dca.ClearSlot("AlternateHead");
+        dca.ClearSlot("Eyes");
+        dca.ClearSlot("Complexion");
         dca.BuildCharacter();
     }
 
@@ -21,7 +23,12 @@ public class Buttons : MonoBehaviour
         race.baseRaceRecipe = original_dna;
         dca.ClearSlot("Face");
         dca.ClearSlot("AlternateHead");
-        dca.SetSlot("testHead2");
+        dca.ClearSlot("Eyes");
+        dca.ClearSlot("Complexion");
+        dca.SetSlot("stage3_mesh_id_Recipe");
+        dca.SetSlot("eyes_Recipe");
+        dca.SetSlot("inner_mouth_Recipe");
+        dca.SetSlot("SkinToneRecipe");
         dca.BuildCharacter();
     }
 
@@ -30,6 +37,8 @@ public class Buttons : MonoBehaviour
         race.baseRaceRecipe = new_dna;
         dca.ClearSlot("Face");
         dca.ClearSlot("AlternateHead");
+        dca.ClearSlot("Eyes");
+        dca.ClearSlot("Complexion");
         dca.SetSlot("TestOverlayRecipe");
         dca.BuildCharacter();
     }

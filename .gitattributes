@@ -2,3 +2,4 @@
 WindowsBuild/FFHQ_Data/resources.assets.res filter=lfs diff=lfs merge=lfs -text
 WindowsBuild/FFHQ_Data/resources.assets.resS filter=lfs diff=lfs merge=lfs -text
 *.resS filter=lfs diff=lfs merge=lfs -text
+WindowsBuild/* filter=lfs diff=lfs merge=lfs -text

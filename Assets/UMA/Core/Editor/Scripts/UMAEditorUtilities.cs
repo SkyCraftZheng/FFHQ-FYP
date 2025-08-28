@@ -74,8 +74,35 @@ namespace UMA
 			}
 		}
 
+        public static string FindUMAFolder()
+        {
+            string basePath = FindUMAFullPath();
+            // return the path relative to the Assets folder
+            string folder = basePath.Replace(Application.dataPath, "Assets");
+            return folder;
+        }
 
+        public static string FindUMAFullPath()
+        {
+            string folder = "UMA";
 
+            // search the project for the UMA folder
+            string[] folders = AssetDatabase.FindAssets("UMA t:Folder");
+            if (folders != null && folders.Length > 0)
+            {
+                foreach (string guid in folders)
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    if (path.EndsWith(folder, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return path;
+                    }
+                }
+            }
+
+            // if we didn't find it, return the default path
+            return Path.Combine(Application.dataPath, folder);
+        }
         public static NamedBuildTarget CurrentNamedBuildTarget
         {
             get
@@ -291,95 +318,6 @@ namespace UMA
 			EditorUtility.DisplayDialog("Complete",completeMessage , "OK");
 		}
 #endif
-
-
-		[MenuItem("UMA/SRP/Convert to URP (LWRP)")]
-		static void ConvertToURP()
-		{
-			if (EditorUtility.DisplayDialog("Convert?", "Convert UMA Materials from Standard to URP. You should run the Unity option to convert your project to URP/LWRP in addition to running this option. Continue?", "OK", "Cancel"))
-			{
-				if (ConvertUMAMaterials("_MainTex", "_BaseMap"))
-				{
-					EditorUtility.DisplayDialog("Convert",
-						"UMAMaterials converted. You will need to run the unity URP (LWRP) conversion utility to convert your materials if you have not already done this.", "OK");
-				}
-				else
-				{
-					EditorUtility.DisplayDialog("Convert", "No UMAMaterials needed to be converted.", "OK");
-				}
-
-			}
-		}
-
-		[MenuItem("UMA/SRP/Convert to Standard from URP (LWRP)")]
-		static void ConvertToStandard()
-		{
-			if (EditorUtility.DisplayDialog("Convert?", "Convert UMAMaterials to Standard from URP. You will need to manually fix the template materials. Continue?", "OK", "Cancel"))
-			{
-				if (ConvertUMAMaterials("_BaseMap", "_MainTex"))
-				{
-					EditorUtility.DisplayDialog("Convert", "UMAMaterials converted. You will need to manually fix the template materials by changing them to use the correct shaders if you modified them.", "OK");
-				}
-				else
-				{
-					EditorUtility.DisplayDialog("Convert", "No UMAMaterials needed to be converted.", "OK");
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convertes all UMAMaterial channel Material Property names if they match.
-		/// </summary>
-		/// <param name="From"></param>
-		/// <param name="To"></param>
-		/// <returns></returns>
-		static bool ConvertUMAMaterials(string From, string To)
-		{
-			string[] guids = AssetDatabase.FindAssets("t:UMAMaterial");
-
-			int dirtycount = 0;
-			foreach (string guid in guids)
-			{
-				bool matModified = false;
-				string path = AssetDatabase.GUIDToAssetPath(guid);
-				UMAMaterial umat = AssetDatabase.LoadAssetAtPath<UMAMaterial>(path);
-				if (umat.material.shader.name.ToLower().StartsWith("standard") || umat.material.shader.name.ToLower().Contains("lit"))
-				{
-					for (int i = 0; i < umat.channels.Length; i++)
-					{
-						if (umat.channels[i].materialPropertyName == From)
-						{
-							umat.channels[i].materialPropertyName = To;
-							matModified = true;
-						}
-					}
-				}
-				if (umat.material.shader.name.ToLower().Contains("hair fade"))
-                {
-					umat.material.shader = Shader.Find("Universal Render Pipeline/Nature/SpeedTree8");
-					if (umat.material.name.ToLower().Contains("single"))
-                    {
-						umat.material.SetInt("_TwoSided", 2);
-                    }
-					else
-                    {
-						umat.material.SetInt("_TwoSided", 0);
-					}
-					matModified = true;
-                }
-				if (matModified)
-				{
-					dirtycount++;
-					EditorUtility.SetDirty(umat);
-				}
-			}
-			if (dirtycount > 0)
-			{
-				AssetDatabase.SaveAssets();
-				return true;
-			}
-			return false;
-		}
 
 #if UMA_HOTKEYS
 		[MenuItem("UMA/Toggle Hotkeys (enabled)",priority =30)]

@@ -50,7 +50,8 @@ namespace UMA.Editors
 		SlotPreviewMode previewMode = SlotPreviewMode.ThisSlot;
 		int previewVertex = -1;
 
-		[MenuItem("Assets/Create/UMA/Core/Custom Slot Asset")]
+
+        [MenuItem("Assets/Create/UMA/Core/Custom Slot Asset")]
 		public static void CreateCustomSlotAssetMenuItem()
 		{
 			CustomAssetUtility.CreateAsset<SlotDataAsset>("", true, "Custom");
@@ -177,9 +178,9 @@ namespace UMA.Editors
 			}
 		}*/
 
-		public override void OnInspectorGUI()
+		public override void OnInspectorGUI() 
 		{
-			if (slot == null)
+            if (slot == null)
 			{
 				OnEnable();
 			}
