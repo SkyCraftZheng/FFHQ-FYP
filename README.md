@@ -5,6 +5,7 @@ This is persued for the purposes of enhancing [SAT](https://ieeexplore.ieee.org/
 Template creation, mesh processing and UV remapping is implemented in Python, as that is the supported scripting language for Blender, for the template creation and mesh processing, Blender is used. To load the Python dependencies, MeshProcessing.yml loaded in conda-forge will install them.
 
 ```
+cd MeshProcessing/
 conda env create -f MeshProcessing.yml
 conda activate MeshProcessing
 ```
@@ -22,7 +23,6 @@ The 2d image is processed by [FFHQ-UV](https://github.com/RaymondGuo2/FFHQ-UV-RG
 Then the generated mesh can be processed and prepared for slot conversion with:
 
 ```
-cd MeshProcessing/
 {Blender} {UMA Blender file} -b --python ./ProcessMeshes.py
 ```
 
