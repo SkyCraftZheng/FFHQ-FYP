@@ -14,12 +14,12 @@ conda activate MeshProcessing
 All of the Blender scripts assume the naming convention for objects within `MeshProcessing/UMA Blender Female Unified.blend` and `MeshProcessing/UMA Blender Female Unified.blend`.
 
 ## Template, Metallic Nap and Normal Map Creation
-For template creation, the `MeshProcessing/TemplateCreation.py` script was used for importing the template head model the initial alignment of the template. This script does not save or export the result, meaning that it has to be run inside Blender for its results to be observed and tweaked. This script assumes the `.obj` file that is used to create a template is located at `./input/stage3\_mesh\_id.obj` relative to the open Blender file. 
+For template creation, the `MeshProcessing/TemplateCreation.py` script was used for importing the template head model the initial alignment of the template. This script does not save or export the result, meaning that it has to be run inside Blender for its results to be observed and tweaked. This script assumes the `.obj` file that is used to create a template is located at `./input/stage3_mesh_id.obj` relative to the open Blender file. 
 
-For remapping normal and metallic maps is implemented in the `MeshProcessing/TextureTransfer.py` script, which assumes that the original UMA maps are located relative to its position at `./UMA\_maps/metallic.png` and `./UMA\_maps/normal.png`. It also assumes the uv information is in `./uv\_data/` with `original\_uv.txt` containing the original uv data, `dest\_uv.txt` the remapped uv data and `face\_topology.txt` the face indices and the corresponding vertices' indices. It also assumes that it is in the same folder as `utils.py`, which contains the implementation for retrieving landmark coordinates and aligning landmarks. The remapped images are outputted at `./output/metallic.png` and `./output/normal.png`.
+For remapping normal and metallic maps is implemented in the `MeshProcessing/TextureTransfer.py` script, which assumes that the original UMA maps are located relative to its position at `./UMA_maps/metallic.png` and `./UMA_maps/normal.png`. It also assumes the uv information is in `./uv_data/` with `original_uv.txt` containing the original uv data, `dest_uv.txt` the remapped uv data and `face_topology.txt` the face indices and the corresponding vertices' indices. It also assumes that it is in the same folder as `utils.py`, which contains the implementation for retrieving landmark coordinates and aligning landmarks. The remapped images are outputted at `./output/metallic.png` and `./output/normal.png`.
 
 ## Processing a Newly Generated Mesh
-The 2d image is processed by [FFHQ-UV](https://github.com/RaymondGuo2/FFHQ-UV-RGB/tree/b0627f10423925203ed3606506bd3b8e497a7cc1). Then the following files are transferred by hand to 'MeshProcessing/input/': 'L\_ball.obj', 'R\_ball.obj', 'stage3\_mesh\_id.obj', 'stage3\_mesh.mtl', 'eye\_ball\_tex.mtl' and 'stage3\_uv.png'.
+The 2d image is processed by [FFHQ-UV](https://github.com/RaymondGuo2/FFHQ-UV-RGB/tree/b0627f10423925203ed3606506bd3b8e497a7cc1). Then the following files are transferred by hand to `MeshProcessing/input/`: `L_ball.obj`, `R_ball.obj`, `stage3_mesh_id.obj`, `stage3_mesh.mtl`, `eye_ball_tex.mtl` and `stage3_uv.png`.
 
 Then the generated mesh can be processed and prepared for slot conversion with:
 
@@ -36,10 +36,10 @@ The FFHQ-UV generated texture can be stretched with
 python ./Stretch.py
 ```
 
-With the assumption that, relative to the script, the input image is at `/input/stage3\_uv.png` and outputs at `output/stage3\_uv\_stretched.png`. Note that the image is opened and its type is changed to 32 bit unsigned integer to prevent integer overflow when calculating averages, then it is converted back to 8 bit unsigned integer for exporting to png.
+With the assumption that, relative to the script, the input image is at `/input/stage3_uv.png` and outputs at `output/stage3_uv_stretched.png`. Note that the image is opened and its type is changed to 32 bit unsigned integer to prevent integer overflow when calculating averages, then it is converted back to 8 bit unsigned integer for exporting to png.
 
 ## Applying the Processed Mesh
-Import the processed .fbx files and the stretched texture into Unity. Update `Assets/FFHQ/FFHQ Overlay.asset` to use the imported stretched texture by dragging and dropping, and similarly update the `Assets/FFHQ/Slots/eyes/eyes\_slot`, `Assets/FFHQ/Slots/inner\_mouth/inner\_mouth\_slot` and `Assets/FFHQ/Slots/stage3\_mesh\_id/stage3\_mesh\_id\_slot` for the female model. For the male model update the slots with the same names but with `Male\_` in front of them.
+Import the processed .fbx files and the stretched texture into Unity. Update `Assets/FFHQ/FFHQ Overlay.asset` to use the imported stretched texture by dragging and dropping, and similarly update the `Assets/FFHQ/Slots/eyes/eyes_slot`, `Assets/FFHQ/Slots/inner_mouth/inner_mouth_slot` and `Assets/FFHQ/Slots/stage3_mesh_id/stage3_mesh_id_slot` for the female model. For the male model update the slots with the same names but with `Male_` in front of them.
 
 ## UI and customisation
 Buttons were set up to change the hairstyle of the avatar along with changing in between the original UMA head, the processed FFHQ-UV head on the other hand and DNA\&Overlay method.
