@@ -86,3 +86,6 @@ crashlytics-build.properties
 
 /.plastic
 /ignore.conf
+
+# Pychache
+/MeshProcessing/__pychache__/*
