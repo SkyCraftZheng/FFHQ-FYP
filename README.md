@@ -2,7 +2,7 @@
 This project's technical report can be found [here](https://drive.google.com/file/d/1Wo68VDdgVpRwTQSnCpJw2oN-_OsH2O6G/view?usp=sharing). The aim of this project is to integrate the output of [FFHQ-UV](https://github.com/RaymondGuo2/FFHQ-UV-RGB/tree/b0627f10423925203ed3606506bd3b8e497a7cc1) to [UMA](https://assetstore.unity.com/packages/3d/characters/uma-2-35611).
 This is persued for the purposes of enhancing [SAT](https://ieeexplore.ieee.org/abstract/document/7280780) interventions, in providing a more realistic and accurate representation of the patient.
 
-Template creation, mesh processing and UV remapping is implemented in Python, as that is the supported scripting language for Blender, for the template creation and mesh processing, Blender is used. To load the Python dependencies, MeshProcessing.yml loaded in conda-forge will install them.
+Template creation, mesh processing and UV remapping is implemented in Python, as that is the supported scripting language for [Blender](https://www.blender.org/), for the template creation and mesh processing, Blender is used. To load the Python dependencies, MeshProcessing.yml loaded in conda-forge will install them.
 
 ```
 cd MeshProcessing/
