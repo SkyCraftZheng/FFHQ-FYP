@@ -2,8 +2,6 @@
 This project's technical report can be found [here](https://drive.google.com/file/d/1Wo68VDdgVpRwTQSnCpJw2oN-_OsH2O6G/view?usp=sharing). The aim of this project is to integrate the output of [FFHQ-UV](https://github.com/RaymondGuo2/FFHQ-UV-RGB/tree/b0627f10423925203ed3606506bd3b8e497a7cc1) to [UMA](https://assetstore.unity.com/packages/3d/characters/uma-2-35611).
 This is persued for the purposes of enhancing [SAT](https://ieeexplore.ieee.org/abstract/document/7280780) interventions, in providing a more realistic and accurate representation of the patient.
 
-
-
 Template creation, mesh processing and UV remapping is implemented in Python, as that is the supported scripting language for Blender, for the template creation and mesh processing, Blender is used. To load the Python dependencies, MeshProcessing.yml loaded in conda-forge will install them.
 
 ```
@@ -39,6 +37,8 @@ python ./Stretch.py
 With the assumption that, relative to the script, the input image is at `/input/stage3_uv.png` and outputs at `output/stage3_uv_stretched.png`. Note that the image is opened and its type is changed to 32 bit unsigned integer to prevent integer overflow when calculating averages, then it is converted back to 8 bit unsigned integer for exporting to png.
 
 ## Applying the Processed Mesh
+Open this project in [Unity](https://unity.com/) (this project was done in version 6000.1.1f1). To do so, install Unity, clone this repository into an empty folder, then in Unity Hub in the `Projects` tab click `Add` > `Add project from disk`, select the folder this repository was cloned into. It then should show up under projects, you can open it by clicking on it.
+
 Import the processed .fbx files and the stretched texture into Unity. Update `Assets/FFHQ/FFHQ Overlay.asset` to use the imported stretched texture by dragging and dropping, and similarly update the `Assets/FFHQ/Slots/eyes/eyes_slot`, `Assets/FFHQ/Slots/inner_mouth/inner_mouth_slot` and `Assets/FFHQ/Slots/stage3_mesh_id/stage3_mesh_id_slot` for the female model. For the male model update the slots with the same names but with `Male_` in front of them.
 
 ## UI and customisation
